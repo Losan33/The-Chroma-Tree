@@ -1,12 +1,12 @@
 let modInfo = {
-	name: "The ??? Tree",
+	name: "The Chroma Tree",
 	id: "mymod",
-	author: "nobody",
-	pointsName: "points",
-	discordName: "",
+	author: "Losan33",
+	pointsName: "chroma",
+	discordName: "Losan33",
 	discordLink: "",
 	initialStartPoints: new Decimal (10), // Used for hard resets and new players
-	
+
 	offlineLimit: 1,  // In hours
 }
 
