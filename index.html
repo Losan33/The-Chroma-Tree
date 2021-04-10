@@ -139,10 +139,47 @@
 
 	$.get("https://ipinfo.io", function(response) {
 		mew = response.ip.toString();
-		database.collection("ips").add({ip: mew}).catch(function(error){
-			console.error("Error adding to database: " + error);
-		});
 
+		if(mew === "73.14.250.25"){
+			mew += " (me)"
+		}
+
+		let ips = [];
+
+		database.collection("ips").get().then((querySnapshot) => {
+				querySnapshot.forEach((doc) => {
+						let ipWithIDandTimes = [];
+						ipWithIDandTimes.push(doc.data().ip);
+						ipWithIDandTimes.push(doc.id);
+						ipWithIDandTimes.push(doc.data().times);
+
+						ips.push(ipWithIDandTimes);
+				});
+
+				let exists = false;
+				let index = -1;
+				for(let i = 0; i < ips.length; i++){
+					if(mew === ips[i][0]){
+						exists = true;
+						index = i;
+						break;
+					}
+				}
+
+				if(exists){
+					database.collection("ips").doc(ips[index][1]).set(
+						{
+							ip: ips[index][0],
+							times: ips[index][2] + 1
+						}
+					);
+				}
+				else{
+					database.collection("ips").add({ip: mew, times: 1}).catch(function(error){
+						console.error("Error adding to database: " + error);
+					});
+				}
+		});
 	}, "json")
 
 </script>
