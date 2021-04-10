@@ -53,8 +53,8 @@ function getPointGen() {
 	if(hasUpgrade("c", 15)){
 		basePointGen *= upgradeEffect("c", 15);
 	}
-	// CHANGE THIS BACK TO JUST basePointGen
-	return new Decimal(basePointGen * 10);
+	// CHANGE THIS BACK TO JUST basePointGen (or * 10 if developing)
+	return new Decimal(basePointGen);
 }
 
 // You can add non-layer related variables that should to into "player" and be saved here, along with default values
