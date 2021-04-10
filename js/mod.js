@@ -1,9 +1,9 @@
 let modInfo = {
 	name: "The Chroma Tree",
-	id: "mymod",
+	id: "theChromaTreeMod",
 	author: "Losan33",
 	pointsName: "chroma",
-	discordName: "Losan33",
+	discordName: "",
 	discordLink: "",
 	initialStartPoints: new Decimal (10), // Used for hard resets and new players
 
@@ -13,7 +13,7 @@ let modInfo = {
 // Set your version in num and name
 let VERSION = {
 	num: "0.0",
-	name: "Literally nothing",
+	name: "Existence",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
