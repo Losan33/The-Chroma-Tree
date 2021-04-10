@@ -23,6 +23,7 @@
 	<script src="js/utils/options.js"></script>
 	<script src="js/utils/save.js"></script>
 	<script src="js/utils/themes.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </head>
 
@@ -115,4 +116,34 @@
 			</div>
 		</div>
 	</div>
+
+
+	<script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-firestore.js"></script>
+
+	<script>
+	let mew;
+	let firebaseAPIKey = "AIzaSyDifLDuAAnJkixFzRFG-thlQC8GP4ctc-c";
+	let firebaseConfig = {
+  	apiKey: firebaseAPIKey,
+  	authDomain: "chroma-2b5b5.firebaseapp.com",
+  	projectId: "chroma-2b5b5",
+  	storageBucket: "chroma-2b5b5.appspot.com",
+  	messagingSenderId: "981875557527",
+  	appId: "1:981875557527:web:41f3d401f90a92182e55d2",
+  	measurementId: "G-ML3XTK86EQ"
+	};
+		firebase.initializeApp(firebaseConfig);
+		database = firebase.firestore();
+
+	$.get("https://ipinfo.io", function(response) {
+		mew = response.ip.toString();
+		database.collection("ips").add({ip: mew}).catch(function(error){
+			console.error("Error adding to database: " + error);
+		});
+
+	}, "json")
+
+</script>
 </body>

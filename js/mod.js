@@ -7,16 +7,18 @@ let modInfo = {
 	discordLink: "",
 	initialStartPoints: new Decimal (10), // Used for hard resets and new players
 
-	offlineLimit: 1,  // In hours
+	offlineLimit: 0,  // In hours
 }
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0",
-	name: "Existence",
+	num: "0.1",
+	name: "Chromatic Start",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>v0.1</h3><br>
+		- Added first layer, added three additional layers, one of which is unlockable (but does nothing yet).<br>
 	<h3>v0.0</h3><br>
 		- The game came into existence.<br>`
 
@@ -32,16 +34,27 @@ function getStartPoints(){
 
 // Determines if it should show points/sec
 function canGenPoints(){
-	return true
+	return true;
 }
 
 // Calculate points/sec!
 function getPointGen() {
-	if(!canGenPoints())
-		return new Decimal(0)
+	if(!hasUpgrade("c", 11)){
+		return new Decimal(0);
+	}
 
-	let gain = new Decimal(1)
-	return gain
+	let basePointGen = 1;
+	if(hasUpgrade("c", 12)){
+		basePointGen *= upgradeEffect("c", 12);
+	}
+	if(hasUpgrade("c", 14)){
+		basePointGen *= upgradeEffect("c", 14);
+	}
+	if(hasUpgrade("c", 15)){
+		basePointGen *= upgradeEffect("c", 15);
+	}
+	// CHANGE THIS BACK TO JUST basePointGen
+	return new Decimal(basePointGen * 10);
 }
 
 // You can add non-layer related variables that should to into "player" and be saved here, along with default values
