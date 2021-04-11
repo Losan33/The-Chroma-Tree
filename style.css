@@ -624,6 +624,13 @@ ul {
 	background-color: var(--background);
 }
 
+.chromaCSS{
+	/*color: #FF0000;*/
+	/*text-shadow: 2px 2px 10px #FFFFFF;*/
+	/*-webkit-text-stroke: 0.1px white;*/
+	font-size: 28px !important;
+}
+
 .sideLayers {
 	z-index: 10000;
 	pointer-events:auto;

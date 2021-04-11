@@ -1,4 +1,42 @@
 addLayer("c", {
+    changeChroma(){
+      hue += 3.2;
+      brightness += ((Math.PI * 2) / 343);
+      if(satInc){
+        saturation += 0.437;
+      }
+      else{
+        saturation -= 0.437;
+      }
+
+      if(hue > 360){
+        hue -= 360;
+      }
+
+      if(brightness >= (Math.PI * 2)){
+        brightness -= (Math.PI * 2);
+      }
+
+      if(saturation >= 100){
+        satInc = false;
+      }
+      if(saturation <= 0){
+        satInc = true;
+      }
+
+      let satP = saturation + "%";
+      let adjBright = Math.sin(brightness) * 50 + 50;
+      let brightP = adjBright + "%";
+
+      let hslText = "hsl(" + hue + ", " + satP + ", " + brightP + ")";
+      let hslStroke = "hsl(" + hue + ", " + satP + ", " + (100 - adjBright) + "%)";
+
+      if(document.getElementById("chromaText")){
+        document.getElementById("chromaText").style.setProperty("color", hslText);
+        document.getElementById("chromaText").style.setProperty("-webkit-text-stroke", "0.1px " + hslStroke);
+      }
+    },
+
     name: "Chroma Power", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "C", // This appears on the layer's node. Default is the id with the first letter capitalized
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
@@ -6,7 +44,15 @@ addLayer("c", {
         unlocked: true,
 		    points: new Decimal(0),
     }},
-    color: "#ffffff",
+    color() {
+      let satP = saturation + "%";
+      let adjBright = Math.sin(brightness) * 50 + 50;
+      let brightP = adjBright + "%";
+
+      let hslText = "hsl(" + hue + ", " + satP + ", " + brightP + ")";
+
+      return hslText;
+    },
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
     resource: "Chroma Power", // Name of prestige currency
     baseResource: "chroma", // Name of resource prestige is based on
@@ -184,7 +230,7 @@ addLayer("s", {
     resource: "Saturation Power", // Name of prestige currency
     baseResource: "Chroma Power", // Name of resource prestige is based on
     baseAmount() {return player.c.points}, // Get the current amount of baseResource
-    type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
+    type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     branches: ["c"],
     exponent: 1, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
@@ -228,7 +274,7 @@ addLayer("b", {
     resource: "Brightness Power", // Name of prestige currency
     baseResource: "Chroma Power", // Name of resource prestige is based on
     baseAmount() {return player.c.points}, // Get the current amount of baseResource
-    type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
+    type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     branches: ["c"],
     exponent: 1, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses

@@ -3,6 +3,13 @@ var needCanvasUpdate = true;
 var gameEnded = false;
 var scrolled = false;
 
+
+let hue = 0;
+let saturation = 0
+let brightness = 0;
+let satInc = true;
+
+
 // Don't change this
 const TMT_VERSION = {
 	tmtNum: "2.π.1",
